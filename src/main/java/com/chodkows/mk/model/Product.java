@@ -1,9 +1,8 @@
 package com.chodkows.mk.model;
 
-import io.vavr.collection.List;
+import io.vavr.collection.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,11 +14,16 @@ public class Product extends BaseEntity {
   private BigDecimal price;
   private BigDecimal salePrice;
   private Long quantity;
+  @OneToOne
   private SkinCareCategory skinCareCategory;
+  @OneToOne
   private MakeupCategory makeupCategory;
+  @OneToOne
   private BodyCareCategory bodyCareCategory;
+  @OneToOne
   private SkinType skinType;
-  private List<Ingredients> ingredients;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
+  private Set<Ingredients> ingredients;
   private String regularDescription;
   private String usageDescription;
   private String ingredientsDescription;
@@ -28,7 +32,8 @@ public class Product extends BaseEntity {
   private Long quantityInUnitOfMeasure;
   private Long votes;
   private Star star;
-  private List<Comment> comments;
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
+  private Set<Comment> comments;
 
 
 }
